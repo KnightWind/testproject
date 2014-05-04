@@ -38,7 +38,8 @@ public class UploadHandler {
 			 FutureWapper taskFutureWapper = new FutureWapper();
 			 
 			 taskFutureWapper.setFuture(taskFuture);
-			 if(CONTEXT.size()>6){
+			 //clear the CONTEXT,Prevent out of memory 
+			 if(CONTEXT.size()>60){
 				 CONTEXT.values();
 				 
 				FutureWapper lfw = null;
@@ -87,11 +88,15 @@ public class UploadHandler {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 			f.cancel(true);
-			 return "failed";
+			
+			CONTEXT.remove(sessionId);
+			return "failed";
 		} catch (ExecutionException e) {
 			e.printStackTrace();
 			f.cancel(true);
-			 return "failed";
+			CONTEXT.remove(sessionId);
+			
+			return "failed";
 		} catch (TimeoutException e) {
 			e.printStackTrace();
 			return "lodding";
@@ -135,7 +140,6 @@ public class UploadHandler {
 				
 			 
 			if(uploadDataService==null){
-				System.out.println("uploadDataService === kong ");
 				return "error";
 			}
 			boolean flag = uploadDataService.importDataFromExcel(in);

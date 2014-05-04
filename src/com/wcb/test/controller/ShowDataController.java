@@ -82,7 +82,6 @@ public class ShowDataController {
 		}catch (Exception e) {
 			pageSize = 10;
 		}
-		
 		try {
 			PageBean<Product> productPage = queryDataService.getProductPage(pageNo, pageSize);
 			map.put("pageModel", productPage);

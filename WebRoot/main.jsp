@@ -37,7 +37,7 @@ var setting = {
 
 var zNodes =[
 	{ id:1, pId:0, name:"用户", url:"${pageContext.request.contextPath}/show/userlist.do", target:"mainFrame"},
-	{ id:2, pId:0, name:"产品", url:"manage/infolist/21", target:"mainFrame"},
+	{ id:2, pId:0, name:"产品", url:"${pageContext.request.contextPath}/show/productlist.do", target:"mainFrame"},
 	{ id:3, pId:0, name:"辅食系列", url:"/manage/photolist/31", target:"mainFrame"},
 ];
 

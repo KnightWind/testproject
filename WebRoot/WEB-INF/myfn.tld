@@ -16,10 +16,51 @@
        this function is get the product client number
     </description>
     <name>clientNum</name>
-    <function-class>com.nufront.bsm.service.DiagGetter</function-class>
-    <function-signature>java.lang.Integer getFristDiag(java.lang.Integer)</function-signature>
+    <function-class>com.wcb.test.componet.MyFnTag</function-class>
+    <function-signature>java.lang.Integer getCustomerNum(java.lang.Integer)</function-signature>
     <example>
       &lt;c:if test="${myfn:clientNum(pid)}">
     </example>
   </function>
+  
+ 
+  
+  
+  <function>
+    <description>
+       this function is get the product sale Profit
+    </description>
+    <name>getProfit</name>
+    <function-class>com.wcb.test.componet.MyFnTag</function-class>
+    <function-signature>java.lang.Double getProductProfit(java.lang.Integer)</function-signature>
+    <example>
+      &lt;c:if test="${myfn:getProfit(pid)}">
+    </example>
+  </function>
+  
+  
+   <function>
+    <description>
+       this function is get the product sale Sum
+    </description>
+    <name>getSum</name>
+    <function-class>com.wcb.test.componet.MyFnTag</function-class>
+    <function-signature>java.lang.Double getProductSumMonery(java.lang.Integer)</function-signature>
+    <example>
+      &lt;c:if test="${myfn:getSum(pid)}">
+    </example>
+  </function>
+  
+  <function>
+    <description>
+       this function is get the product sale Profit
+    </description>
+    <name>test</name>
+    <function-class>com.wcb.test.componet.MyFnTag</function-class>
+    <function-signature>java.lang.String test(java.lang.Integer)</function-signature>
+    <example>
+      &lt;c:if test="${myfn:test(pid)}">
+    </example>
+  </function>
+  
 </taglib>

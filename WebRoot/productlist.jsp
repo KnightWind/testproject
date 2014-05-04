@@ -10,7 +10,18 @@
 <link rel="stylesheet" type="text/css" href="${ctx}/style/rightbox.css" />
 <link rel="stylesheet" type="text/css" href="${ctx}/style/list.css"/>
 <script type="text/javascript" src="${ctx}/js/jquery-1.8.3.js"></script>	
+<script type="text/javascript" src="${ctx}/js/layer/layer.min.js"></script>	
 <script type="text/javascript">
+	function showDetailInfo(pid){
+		var url = "http://www.baidu.com";
+		$.layer({
+		    type : 2,
+		    title : '购买明细',
+		    iframe : {src : url},
+		    area : ['750px' , '466px'],
+		    offset : ['100px','']
+		});
+	}
 </script>
 </head>
 <body>
@@ -19,12 +30,12 @@
 		<table width="100%" border="0" align="center" cellpadding="0"
 			cellspacing="0" id="table_box">
 			<tr class="table003">
-				<td width="50%" height="38" bgcolor="d3eaef" class="STYLE10"><div
+				<td width="10%" height="38" bgcolor="d3eaef" class="STYLE10"><div
 						align="center">
 						<span><b>产品名</b></span>
 					</div>
 				</td>
-				<td width="20%" height="38" bgcolor="d3eaef" class="STYLE10"><div
+				<td width="15%" height="38" bgcolor="d3eaef" class="STYLE10"><div
 						align="center">
 						<span><b>产品类别</b></span>
 					</div>
@@ -34,35 +45,35 @@
 						<span><b>产品金额</b></span>
 					</div>
 				</td>
-				<td width="20%" height="38" bgcolor="d3eaef" class="STYLE10">
+				<td width="10%" height="38" bgcolor="d3eaef" class="STYLE10">
 					<div
 						align="center">
 						<span><b>单位</b></span>
 					</div>
 				</td>
 				
-				<td width="20%" height="38" bgcolor="d3eaef" class="STYLE10">
+				<td width="15%" height="38" bgcolor="d3eaef" class="STYLE10">
 					<div
 						align="center">
 						<span><b>客户数</b></span>
 					</div>
 				</td>
 				
-				<td width="20%" height="38" bgcolor="d3eaef" class="STYLE10">
+				<td width="15%" height="38" bgcolor="d3eaef" class="STYLE10">
 					<div
 						align="center">
 						<span><b>销售额</b></span>
 					</div>
 				</td>
 				
-				<td width="20%" height="38" bgcolor="d3eaef" class="STYLE10">
+				<td width="15%" height="38" bgcolor="d3eaef" class="STYLE10">
 					<div
 						align="center">
 						<span><b>利润</b></span>
 					</div>
 				</td>
 				
-				<td width="20%" height="38" bgcolor="d3eaef" class="STYLE10">
+				<td width="10%" height="38" bgcolor="d3eaef" class="STYLE10">
 					<div
 						align="center">
 						<span><b>明细</b></span>
@@ -74,7 +85,7 @@
 			            <td height="32" colspan="11" align="center">无数据</td>
 			     </tr>
 			</c:if>
-			<c:forEach var="user" items="${pageModel.datas}" varStatus="status">
+			<c:forEach var="product" items="${pageModel.datas}" varStatus="status">
 				<tr class="table001">
 					<td height="32">
 						<div align="center">
@@ -88,32 +99,32 @@
 					</td>
 					<td height="32">
 					<div align="center">
-							 <span><fmt:formatDate value="${product.cost}" type="date" pattern="yyyy-MM-dd"/></span>
+							 <span><fmt:formatNumber value="${product.cost}" pattern="0.00" type="number"/></span>
 						</div>
 					</td>
 					<td height="32">
 						<div align="center">
-							 ${product.unit}
+							 <span> ${product.unit}</span>
 						</div>
 					</td>
 					<td height="32">
 						<div align="center">
-							 ${product.unit}
+							<span>${myfn:clientNum(product.id) }</span>
 						</div>
 					</td>
 					<td height="32">
 						<div align="center">
-							 ${product.unit}
+							<span> <fmt:formatNumber value="${myfn:getSum(product.id) }" pattern="0.00" type="number"/></span>
 						</div>
 					</td>
 					<td height="32">
 						<div align="center">
-							 ${product.unit}
+							<span> <fmt:formatNumber value="${myfn:getProfit(product.id) }" pattern="0.00" type="number"/></span>
 						</div>
 					</td>
 					<td height="32">
 						<div align="center">
-							 ${product.unit}
+							 <span style="cursor: pointer;" onclick="showDetailInfo('${product.id}');">查看</span>
 						</div>
 					</td>
 				</tr>
