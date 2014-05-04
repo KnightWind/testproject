@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="           
+      http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd           
+      http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd           
+      http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.1.xsd                       
+      http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+      http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
+	
+	<!-- BoneCP configuration -->
+	<bean id="dataSource" class="com.jolbox.bonecp.BoneCPDataSource"
+		destroy-method="close">
+		<property name="driverClass" value="com.mysql.jdbc.Driver" />
+		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/mytest?autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=utf8" />
+		<property name="username" value="root" />
+		<property name="password" value="123456" />
+		<property name="idleConnectionTestPeriod" value="60" />
+		<property name="idleMaxAge" value="240" />
+		<property name="maxConnectionsPerPartition" value="30" />
+		<property name="minConnectionsPerPartition" value="10" />
+		<property name="partitionCount" value="3" />
+		<property name="maxConnectionAge" value="5000" />
+		<property name="acquireIncrement" value="5" />
+		<property name="statementsCacheSize" value="100" />
+		<property name="releaseHelperThreads" value="3" />
+	</bean>
+
+    <!-- jdbc dao -->
+	<bean id="simpleDao" class="com.wcb.dao.SimpleDao">
+		<property name="jdbcTemplate" ref="template" />
+	</bean>	
+	
+	<bean id="template" class="com.wcb.dao.SimpleJDBCTemplate">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<!-- transaction -->
+	<bean name="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>   
+	
+	 <!-- 上传数据入库 -->
+	<bean name="uploadDataService"
+		class="com.wcb.test.service.UploadDataService">
+		<property name="simpleDao" ref="simpleDao" />
+	</bean>  
+	  
+	<bean name="myFnTag"
+		class="com.wcb.test.componet.MyFnTag">
+		<property name="simpleDao" ref="simpleDao" />
+	</bean>    
+	
+    <tx:annotation-driven transaction-manager="transactionManager"/>  
+    
+	<!-- 文件上传 -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+	
+	<bean id="SpringContextUtil " class="com.wcb.test.util.SpringContextUtil" scope="singleton"/>
+</beans> 
